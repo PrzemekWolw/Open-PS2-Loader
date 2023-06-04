@@ -483,52 +483,51 @@ static unsigned int sendIrxKernelRAM(const char *startup, const char *mode_str, 
     irxptr_tab[modcount++].ptr = (void *)&resetspu_irx;
 
 #ifdef PADEMU
-#define PADEMU_ARG || gEnablePadEmu
-#else
-#define PADEMU_ARG
-#endif
-    if ((modules & CORE_IRX_USB) PADEMU_ARG) {
-        irxptr_tab[modcount].info = size_usbd_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_USBD);
-        irxptr_tab[modcount++].ptr = (void *)&usbd_irx;
-    }
-    if (modules & CORE_IRX_USB) {
-        irxptr_tab[modcount].info = size_usbmass_bd_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_USBMASSBD);
-        irxptr_tab[modcount++].ptr = (void *)&usbmass_bd_irx;
-    }
-    if (modules & CORE_IRX_ILINK) {
-        irxptr_tab[modcount].info = size_iLinkman_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_ILINK);
-        irxptr_tab[modcount++].ptr = (void *)&iLinkman_irx;
-        irxptr_tab[modcount].info = size_IEEE1394_bd_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_ILINKBD);
-        irxptr_tab[modcount++].ptr = (void *)&IEEE1394_bd_irx;
-    }
-    if (modules & CORE_IRX_MX4SIO) {
-        irxptr_tab[modcount].info = size_mx4sio_bd_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_MX4SIOBD);
-        irxptr_tab[modcount++].ptr = (void *)&mx4sio_bd_irx;
-    }
-    if (modules & CORE_IRX_ETH) {
-        irxptr_tab[modcount].info = size_smap_ingame_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_SMAP);
-        irxptr_tab[modcount++].ptr = (void *)&smap_ingame_irx;
-        irxptr_tab[modcount].info = size_ingame_smstcpip_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_SMSTCPIP);
-        irxptr_tab[modcount++].ptr = (void *)&ingame_smstcpip_irx;
-    }
-    if (modules & CORE_IRX_SMB) {
-        irxptr_tab[modcount].info = size_smbinit_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_SMBINIT);
-        irxptr_tab[modcount++].ptr = (void *)&smbinit_irx;
-    }
-
-    if (modules & CORE_IRX_VMC) {
-        irxptr_tab[modcount].info = size_mcemu_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_MCEMU);
-        irxptr_tab[modcount++].ptr = (void *)mcemu_irx;
-    }
-
-#ifdef PADEMU
+    int btstack_loaded = 0;
     if (gEnablePadEmu) {
-        if (gPadEmuSettings & 0xFF) {
-            irxptr_tab[modcount].info = size_bt_pademu_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_PADEMU);
-            irxptr_tab[modcount++].ptr = (void *)&bt_pademu_irx;
-        } else {
-            irxptr_tab[modcount].info = size_usb_pademu_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_PADEMU);
-            irxptr_tab[modcount++].ptr = (void *)&usb_pademu_irx;
+        irxptr_tab[modcount].info = size_pademu_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_PADEMU);
+        irxptr_tab[modcount++].ptr = (void *)&pademu_irx;
+        if (gPadEmuModules & (1 << 0)) {
+            irxptr_tab[modcount].info = size_ds3usb_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_DS3USB);
+            irxptr_tab[modcount++].ptr = (void *)&ds3usb_irx;
+        }
+        if (gPadEmuModules & (1 << 1)) {
+            if (!btstack_loaded) {
+                irxptr_tab[modcount].info = size_btstack_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_BTSTACK);
+                irxptr_tab[modcount++].ptr = (void *)&btstack_irx;
+                btstack_loaded = 1;
+            }
+            irxptr_tab[modcount].info = size_ds3bt_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_DS3BT);
+            irxptr_tab[modcount++].ptr = (void *)&ds3bt_irx;
+        }
+        if (gPadEmuModules & (1 << 2)) {
+            irxptr_tab[modcount].info = size_ds4usb_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_DS4USB);
+            irxptr_tab[modcount++].ptr = (void *)&ds4usb_irx;
+        }
+        if (gPadEmuModules & (1 << 3)) {
+            if (!btstack_loaded) {
+                irxptr_tab[modcount].info = size_btstack_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_BTSTACK);
+                irxptr_tab[modcount++].ptr = (void *)&btstack_irx;
+                btstack_loaded = 1;
+            }
+            irxptr_tab[modcount].info = size_ds4bt_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_DS4BT);
+            irxptr_tab[modcount++].ptr = (void *)&ds4bt_irx;
+        }
+        if (gPadEmuModules & (1 << 4)) {
+            irxptr_tab[modcount].info = size_xbox360usb_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_XBOX360USB);
+            irxptr_tab[modcount++].ptr = (void *)&xbox360usb_irx;
+        }
+        if (gPadEmuModules & (1 << 5)) {
+            irxptr_tab[modcount].info = size_xboxoneusb_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_XBOXONEUSB);
+            irxptr_tab[modcount++].ptr = (void *)&xboxoneusb_irx;
+        }
+        if (gPadEmuModules & (1 << 6)) {
+            irxptr_tab[modcount].info = size_xboxseriesusb_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_XBOXSERIESUSB);
+            irxptr_tab[modcount++].ptr = (void *)&xboxseriesusb_irx;
+        }
+        if (gPadEmuModules & (1 << 7)) {
+            irxptr_tab[modcount].info = size_hidusb_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_HIDUSB);
+            irxptr_tab[modcount++].ptr = (void *)&hidusb_irx;
         }
     }
 #endif
@@ -817,8 +816,8 @@ void sysLaunchLoaderElf(const char *filename, const char *mode_str, int size_cdv
     sprintf(KernelConfig, "%u %u", (unsigned int)eeloadCopy, (unsigned int)initUserMemory);
 
 #ifdef PADEMU
-#define PADEMU_SPECIFIER " %d %u %u"
-#define PADEMU_ARGUMENT  , gEnablePadEmu, (unsigned int)(gPadEmuSettings >> 8), (unsigned int)(gPadMacroSettings)
+#define PADEMU_SPECIFIER " %d, %u %u"
+#define PADEMU_ARGUMENT , gEnablePadEmu, (unsigned int)gPadEmuSettings, (unsigned int)gPadEmuModules
 #else
 #define PADEMU_SPECIFIER
 #define PADEMU_ARGUMENT

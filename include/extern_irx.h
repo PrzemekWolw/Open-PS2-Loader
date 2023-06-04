@@ -20,7 +20,7 @@ IMPORT_BIN2C(bdmevent_irx);
 
 IMPORT_BIN2C(bdmfs_fatfs_irx);
 
-IMPORT_BIN2C(bt_pademu_irx);
+IMPORT_BIN2C(btstack_irx);
 
 IMPORT_BIN2C(cdvdfsv_irx);
 
@@ -36,6 +36,14 @@ IMPORT_BIN2C(ds34bt_irx);
 
 IMPORT_BIN2C(ds34usb_irx);
 
+IMPORT_BIN2C(ds3bt_irx);
+
+IMPORT_BIN2C(ds3usb_irx);
+
+IMPORT_BIN2C(ds4bt_irx);
+
+IMPORT_BIN2C(ds4usb_irx);
+
 IMPORT_BIN2C(filexio_irx);
 
 IMPORT_BIN2C(genvmc_irx);
@@ -49,6 +57,8 @@ IMPORT_BIN2C(lwnbdsvr_irx);
 IMPORT_BIN2C(hdd_mcemu_irx);
 
 IMPORT_BIN2C(hdpro_atad_irx);
+
+IMPORT_BIN2C(hidusb_irx);
 
 IMPORT_BIN2C(httpclient_irx);
 
@@ -79,6 +89,8 @@ IMPORT_BIN2C(nbns_irx);
 IMPORT_BIN2C(netman_irx);
 
 IMPORT_BIN2C(f2techioppatch_irx);
+
+IMPORT_BIN2C(pademu_irx);
 
 IMPORT_BIN2C(padman_irx);
 
@@ -132,7 +144,11 @@ IMPORT_BIN2C(usbd_irx);
 
 IMPORT_BIN2C(usbmass_bd_irx);
 
-IMPORT_BIN2C(usb_pademu_irx);
+IMPORT_BIN2C(xbox360usb_irx);
+
+IMPORT_BIN2C(xboxoneusb_irx);
+
+IMPORT_BIN2C(xboxseriesusb_irx);
 
 IMPORT_BIN2C(xhdd_irx);
 

@@ -36,6 +36,7 @@ int EnableCheatOp;
 #ifdef PADEMU
 int EnablePadEmuOp;
 int PadEmuSettings;
+int PadEmuModules;
 int PadMacroSettings;
 #endif
 int EnableDebug;
@@ -108,6 +109,7 @@ static int eecoreInit(int argc, char **argv)
     DPRINTF("PADEMU = %s\n", EnablePadEmuOp == 0 ? "Disabled" : "Enabled");
 
     PadEmuSettings = _strtoi(_strtok(NULL, " "));
+    PadEmuModules = _strtoi(_strtok(NULL, " "));
 
     PadMacroSettings = _strtoi(_strtok(NULL, " "));
 #endif

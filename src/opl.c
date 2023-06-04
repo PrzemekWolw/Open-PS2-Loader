@@ -175,6 +175,7 @@ int toggleSfx;
 int showCfgPopup;
 #ifdef PADEMU
 int gEnablePadEmu;
+int gPadEmuModules;
 int gPadEmuSettings;
 int gPadMacroSource;
 int gPadMacroSettings;

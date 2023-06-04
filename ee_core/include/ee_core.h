@@ -86,6 +86,7 @@ extern int EnableCheatOp;
 #ifdef PADEMU
 extern int EnablePadEmuOp;
 extern int PadEmuSettings;
+extern int PadEmuModules;
 extern int PadMacroSettings;
 #endif
 
